@@ -30,14 +30,14 @@ class AwardsInfo(models.Model):
     major_category = models.ForeignKey(MajorCategory, on_delete=models.PROTECT, related_name='awards')
     minor_cateogry = models.ForeignKey(MinorCategory, on_delete=models.PROTECT, related_name='awards')
     name = models.CharField(max_length=255)
-    country = models.CharField(max_length=25, null=True)
-    awarded_for = models.CharField(max_length=255, null=True)
-    presented_by = models.CharField(max_length=255, null=True)
-    first_awarded = models.CharField(max_length=255, null=True)
-    description = models.TextField(max_length=700, null=True)
-    website = models.URLField(null=True)
-    logo = models.ImageField(null=True)
-    trophy = models.ImageField(null=True)
+    country = models.CharField(max_length=25, blank=True, null=True)
+    awarded_for = models.CharField(max_length=255, blank=True, null=True)
+    presented_by = models.CharField(max_length=255, blank=True, null=True)
+    first_awarded = models.CharField(max_length=255, blank=True, null=True)
+    description = models.TextField(max_length=700, blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    logo = models.ImageField(blank=True, null=True)
+    trophy = models.ImageField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'AwardsInfo'
