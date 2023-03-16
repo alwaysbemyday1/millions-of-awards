@@ -3,9 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from .managers import UserManager
 
-class AwardsInfo(models.Model):
-    name = models.CharField(max_length=255)
-
 class MajorCategory(models.Model):
     id = models.AutoField(primary_key=True)
     name_en = models.CharField(max_length=25)
@@ -22,6 +19,20 @@ class MinorCategory(models.Model):
     
     def __str__(self):
         return f"({self.major_category.name_ko}) {self.name_en} / {self.name_ko}"
+
+class AwardsInfo(models.Model):
+    major_category = models.ForeignKey(MajorCategory, on_delete=models.PROTECT, related_name='awards')
+    minor_cateogry = models.ForeignKey(MinorCategory, on_delete=models.PROTECT, related_name='awards')
+    name = models.CharField(max_length=255)
+    country = models.CharField(max_length=25, null=True)
+    awarded_for = models.CharField(max_length=255, null=True)
+    presented_by = models.CharField(max_length=255, null=True)
+    first_awarded = models.CharField(max_length=255, null=True)
+    description = models.TextField(max_length=700, null=True)
+    website = models.URLField(null=True)
+    logo = models.ImageField(null=True)
+    trophy = models.ImageField(null=True)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
