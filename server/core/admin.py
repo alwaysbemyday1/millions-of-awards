@@ -7,13 +7,13 @@ class UserAdmin(admin.ModelAdmin):
     fields = ['email', 'username']
 
 class MajorCategoryAdmin(admin.ModelAdmin):
-    fields = ['__all__']
+    fields = []
 
 class MinorCategoryAdmin(admin.ModelAdmin):
-    fields = ['__all__']
+    fields = []
 
 class AwardsInfoAdmin(admin.ModelAdmin):
-    fields = ['__all__']
+    fields = []
 
 admin.site.register(User, UserAdmin)
 admin.site.register(MajorCategory, MajorCategoryAdmin)
