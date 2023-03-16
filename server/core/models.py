@@ -12,14 +12,13 @@ class UserManager(BaseUserManager):
         if not password:
             raise ValueError('password does not exist')
         
-        email = self.normalize_email(email)
-        user = self.model(nickname=nickname ,email=email, **extra_fields)
+        user = self.model(nickname=nickname , **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
-        user = self.create_user(email = self.normalize_email(email), password=password)
+    def create_superuser(self, nickname, password):
+        user = self.create_user(nickname=nickname, password=password)
         user.is_admin = True
         user.is_superuser = True
         user.save(using=self._db)
