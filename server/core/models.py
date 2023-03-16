@@ -10,6 +10,9 @@ class MajorCategory(models.Model):
     
     def __str__(self):
         return f"{self.name_en} / {self.name_ko}"
+    
+    class Meta:
+        verbose_name_plural = 'MajorCategories'
 
 class MinorCategory(models.Model):
     id = models.AutoField(primary_key=True)
@@ -19,6 +22,9 @@ class MinorCategory(models.Model):
     
     def __str__(self):
         return f"({self.major_category.name_ko}) {self.name_en} / {self.name_ko}"
+    
+    class Meta:
+        verbose_name_plural = 'MinorCategories'
 
 class AwardsInfo(models.Model):
     major_category = models.ForeignKey(MajorCategory, on_delete=models.PROTECT, related_name='awards')
@@ -32,6 +38,9 @@ class AwardsInfo(models.Model):
     website = models.URLField(null=True)
     logo = models.ImageField(null=True)
     trophy = models.ImageField(null=True)
+
+    class Meta:
+        verbose_name_plural = 'AwardsInfo'
 
 
 class User(AbstractBaseUser, PermissionsMixin):
