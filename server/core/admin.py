@@ -4,6 +4,6 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    fields = ['nickname', 'email']
+    fields = ['email', 'username']
 
 admin.site.register(User, UserAdmin)

@@ -2,20 +2,22 @@ from django.contrib.auth.models import BaseUserManager
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
-   
-    def create_user(self, username, password, **extra_fields):
-        if not username:
-            raise ValueError('username does not exist')
+    
+    def create_user(self, email, password, **kwargs):
+        if not email:
+            raise ValueError('email does not exist')
         if not password:
             raise ValueError('password does not exist')
-        
-        user = self.model(username=username , **extra_fields)
+
+        user = self.model(
+            email=self.normalize_email(email), **kwargs
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password):
-        user = self.create_user(username=username, password=password)
+    def create_superuser(self, email, password):
+        user = self.create_user(email = self.normalize_email(email), password=password)
         user.is_admin = True
         user.is_superuser = True
         user.save(using=self._db)
