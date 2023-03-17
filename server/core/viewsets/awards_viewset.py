@@ -19,7 +19,7 @@ class AwardsViewSet(ModelViewSet):
     def list(self, request):
         params = request.query_params
         if 'major' in params and 'minor' in params:
-            queryset = self.get_queryset().filter(major_category__name_en=params['major'], minor_cateogry__name_en=params['minor'])
+            queryset = self.get_queryset().filter(major_category__name_en=params['major'], minor_category__name_en=params['minor'])
         elif 'major' in params:
             queryset = self.get_queryset().filter(major_category__name_en=params['major'])
         else:
@@ -28,13 +28,13 @@ class AwardsViewSet(ModelViewSet):
         return Response(serializer.data)
 
     @action(methods=['get'], detail=True, url_path=r'(?P<ceremony_index>[^/.]+)')
-    def several_awards(self, request, name, ceremony_index):
+    def detail_ceremony(self, request, name, ceremony_index):
         queryset = self.ceremony_queryset.filter(awards__name=name, index=ceremony_index)
         serializer = self.ceremony_serializer(queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['get'], detail=True, url_path=r'(?P<ceremony_index>[^/.]+)/nominees')
-    def several_awards_nominees(self, request, name, ceremony_index):
+    def list_ceremony_nominees(self, request, name, ceremony_index):
         ceremony = self.ceremony_queryset.filter(awards__name = name, index=ceremony_index)
         ceremony_id = ceremony.values_list('id', flat=True)
         queryset = self.nominee_queryset.filter(ceremony=ceremony_id[0])
