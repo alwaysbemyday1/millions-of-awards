@@ -46,3 +46,11 @@ class AwardsViewSet(ModelViewSet):
         queryset = self.nominee_queryset.filter(ceremony=ceremony_id[0])
         serializer = self.nominee_serializer(queryset, many=True)
         return Response(serializer.data)
+
+    @action(methods=['get'], detail=True, url_path=r'ceremonies/(?P<ceremony_index>[^/.]+)/nominees/(?P<nominee_name>[^/.]+)')
+    def detail_ceremony_nominees(self, request, name, ceremony_index, nominee_name):
+        ceremony = self.ceremony_queryset.filter(awards__name = name, index=ceremony_index)
+        ceremony_id = ceremony.values_list('id', flat=True)
+        queryset = self.nominee_queryset.filter(ceremony=ceremony_id[0], name=nominee_name)
+        serializer = self.nominee_serializer(queryset, many=True)
+        return Response(serializer.data)
