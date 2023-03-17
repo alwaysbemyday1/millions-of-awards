@@ -16,6 +16,16 @@ class AwardsViewSet(ModelViewSet):
     nominee_serializer = NomineeSerializer
     lookup_field = 'name'
 
+    def list(self, request):
+        params = request.query_params
+        if 'major' in params and 'minor' in params:
+            queryset = self.get_queryset().filter(major_category__name_en=params['major'], minor_cateogry__name_en=params['minor'])
+        elif 'major' in params:
+            queryset = self.get_queryset().filter(major_category__name_en=params['major'])
+        else:
+            queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     @action(methods=['get'], detail=True, url_path=r'(?P<ceremony_index>[^/.]+)')
     def several_awards(self, request, name, ceremony_index):
