@@ -55,6 +55,16 @@ class Awards(models.Model):
     logo_image = models.ImageField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
 
+class Nominee(models.Model):
+    awards = models.ForeignKey(Awards, on_delete=models.CASCADE, related_name='nominee')
+    name = models.CharField(max_length=50, blank=True)
+    work = models.CharField(max_length=50, blank=True)
+    work_awarded = models.BooleanField(default=False)
+    is_awarded = models.BooleanField(default=False)
+    year_worked = models.IntegerField(blank=True, null=True)
+    year_ceremony = models.IntegerField(blank=True, null=True)
+    category = models.CharField(max_length=50, blank=True)
+
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     
