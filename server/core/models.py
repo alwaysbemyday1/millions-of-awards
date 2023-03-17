@@ -30,11 +30,11 @@ class AwardsInfo(models.Model):
     major_category = models.ForeignKey(MajorCategory, on_delete=models.PROTECT, related_name='awards')
     minor_cateogry = models.ForeignKey(MinorCategory, on_delete=models.PROTECT, related_name='awards')
     name = models.CharField(max_length=255)
-    country = models.CharField(max_length=25, blank=True, null=True)
-    awarded_for = models.CharField(max_length=255, blank=True, null=True)
-    presented_by = models.CharField(max_length=255, blank=True, null=True)
-    first_awarded = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(max_length=700, blank=True, null=True)
+    country = models.CharField(max_length=25, blank=True)
+    awarded_for = models.CharField(max_length=255, blank=True)
+    presented_by = models.CharField(max_length=255, blank=True)
+    first_awarded = models.CharField(max_length=255, blank=True)
+    description = models.TextField(max_length=700, blank=True)
     website = models.URLField(blank=True, null=True)
     logo = models.ImageField(blank=True, null=True)
     trophy = models.ImageField(blank=True, null=True)
@@ -42,6 +42,18 @@ class AwardsInfo(models.Model):
     class Meta:
         verbose_name_plural = 'AwardsInfo'
 
+class Awards(models.Model):
+    awards_info = models.ForeignKey(AwardsInfo, on_delete=models.CASCADE, related_name='award')
+    ceremony = models.IntegerField()
+    date_started = models.DateTimeField(blank=True, null=True)
+    date_finished = models.DateTimeField(blank=True, null=True)
+    location = models.CharField(max_length=50, blank=True)
+    site = models.CharField(max_length=50, blank=True)
+    hosted_by = models.CharField(max_length=50, blank=True)
+    produced_by = models.CharField(max_length=50, blank=True)
+    directed_by = models.CharField(max_length=50, blank=True)
+    logo_image = models.ImageField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
 
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
