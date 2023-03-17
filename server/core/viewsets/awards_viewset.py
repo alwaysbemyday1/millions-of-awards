@@ -27,13 +27,19 @@ class AwardsViewSet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    @action(methods=['get'], detail=True, url_path=r'(?P<ceremony_index>[^/.]+)')
+    @action(methods=['get'], detail=True, url_path=r'ceremonies')
+    def list_ceremony(self, request, name):
+        queryset = self.ceremony_queryset.filter(awards__name=name)
+        serializer = self.ceremony_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['get'], detail=True, url_path=r'ceremonies/(?P<ceremony_index>[^/.]+)')
     def detail_ceremony(self, request, name, ceremony_index):
         queryset = self.ceremony_queryset.filter(awards__name=name, index=ceremony_index)
         serializer = self.ceremony_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    @action(methods=['get'], detail=True, url_path=r'(?P<ceremony_index>[^/.]+)/nominees')
+    @action(methods=['get'], detail=True, url_path=r'ceremonies/(?P<ceremony_index>[^/.]+)/nominees')
     def list_ceremony_nominees(self, request, name, ceremony_index):
         ceremony = self.ceremony_queryset.filter(awards__name = name, index=ceremony_index)
         ceremony_id = ceremony.values_list('id', flat=True)
