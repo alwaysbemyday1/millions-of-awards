@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='nominee',
             name='ceremony',
-            field=models.ForeignKey(default=django.utils.timezone.now, on_delete=django.db.models.deletion.CASCADE, related_name='nominee', to='core.ceremony'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='nominee', to='core.ceremony'),
             preserve_default=False,
         ),
     ]

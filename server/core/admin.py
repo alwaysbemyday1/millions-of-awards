@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, MajorCategory, MinorCategory, AwardsInfo, Ceremony, Nominee
+from .models import User, MajorCategory, MinorCategory, Awards, Ceremony, Nominee
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -12,7 +12,7 @@ class MajorCategoryAdmin(admin.ModelAdmin):
 class MinorCategoryAdmin(admin.ModelAdmin):
     fields = []
 
-class AwardsInfoAdmin(admin.ModelAdmin):
+class AwardsAdmin(admin.ModelAdmin):
     fields = []
 
 class CeremonyAdmin(admin.ModelAdmin):
@@ -24,6 +24,6 @@ class NomineeAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(MajorCategory, MajorCategoryAdmin)
 admin.site.register(MinorCategory, MinorCategoryAdmin)
-admin.site.register(AwardsInfo, AwardsInfoAdmin)
+admin.site.register(Awards, AwardsAdmin)
 admin.site.register(Ceremony, CeremonyAdmin)
 admin.site.register(Nominee, NomineeAdmin)
