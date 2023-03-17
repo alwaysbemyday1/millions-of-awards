@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0007_ceremony_alter_nominee_options_remove_nominee_awards_and_more'),
+        ('core', '0007_rename_awards_ceremony_alter_nominee_options_and_more'),
     ]
 
     operations = [
