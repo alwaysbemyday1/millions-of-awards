@@ -26,9 +26,9 @@ class MinorCategory(models.Model):
     class Meta:
         verbose_name_plural = 'MinorCategories'
 
-class AwardsInfo(models.Model):
+class Awards(models.Model):
     major_category = models.ForeignKey(MajorCategory, on_delete=models.PROTECT, related_name='awards')
-    minor_cateogry = models.ForeignKey(MinorCategory, on_delete=models.PROTECT, related_name='awards')
+    minor_category = models.ForeignKey(MinorCategory, on_delete=models.PROTECT, related_name='awards')
     name = models.CharField(max_length=255)
     country = models.CharField(max_length=25, blank=True)
     awarded_for = models.CharField(max_length=255, blank=True)
@@ -40,11 +40,11 @@ class AwardsInfo(models.Model):
     trophy = models.ImageField(blank=True, null=True)
 
     class Meta:
-        verbose_name_plural = 'AwardsInfo'
+        verbose_name_plural = 'Awards'
 
-class Awards(models.Model):
-    awards_info = models.ForeignKey(AwardsInfo, on_delete=models.CASCADE, related_name='award')
-    ceremony = models.IntegerField()
+class Ceremony(models.Model):
+    awards = models.ForeignKey(Awards, on_delete=models.CASCADE, related_name='ceremony')
+    index = models.IntegerField()
     date_started = models.DateTimeField(blank=True, null=True)
     date_finished = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=50, blank=True)
@@ -56,10 +56,10 @@ class Awards(models.Model):
     website = models.URLField(blank=True, null=True)
     
     class Meta:
-        verbose_name_plural = 'Awards'
+        verbose_name_plural = 'Ceremonies'
 
 class Nominee(models.Model):
-    awards = models.ForeignKey(Awards, on_delete=models.CASCADE, related_name='nominee')
+    ceremony = models.ForeignKey(Ceremony, on_delete=models.CASCADE, related_name='nominee')
     name = models.CharField(max_length=50, blank=True)
     work = models.CharField(max_length=50, blank=True)
     work_awarded = models.BooleanField(default=False)
