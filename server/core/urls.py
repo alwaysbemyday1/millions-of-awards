@@ -2,10 +2,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from core.viewsets.category_viewset import MajorCategoryViewSet
+from core.viewsets.awardsinfo_viewset import AwardsInfoViewSet
 
 router = DefaultRouter()
 
 router.register('category', MajorCategoryViewSet)
+router.register('awards', AwardsInfoViewSet)
 
 urlpatterns = [
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
